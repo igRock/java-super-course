@@ -1,5 +1,4 @@
 public class Notebook {
-    private static int notebookId = 0;
     private int index = 0;
     private Note[] notes;
 
@@ -8,8 +7,6 @@ public class Notebook {
      * @param notesNumber
      */
     public Notebook(int notesNumber) {
-        notebookId++;
-        System.out.println("Создан блокнот с id - " + notebookId);
         notes = new Note[notesNumber];
     }
 
@@ -18,12 +15,11 @@ public class Notebook {
      * @param note
      * @return
      */
-    public int addNote(Note note) {
+    public int addNote(Note note) throws Exception {
         try {
             notes[index] = note;
-            System.out.println("Запись успешно добавлена");
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Блокнот переполнен");
+            throw new Exception("Блокнот переполнен");
         }
         return index++;
     }
@@ -33,12 +29,11 @@ public class Notebook {
      * @param index
      * @return
      */
-    public int deleteNote(int index) {
+    public int deleteNote(int index) throws Exception {
         try {
             notes[index] = null;
-            System.out.println("Запись успешно удалена");
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Введен неправильный индекс записи");
+            throw new Exception("Введен неправильный индекс записи");
         }
         return index;
     }
@@ -49,21 +44,19 @@ public class Notebook {
      * @param updatedNote
      * @return
      */
-    public int editNote(int index, Note updatedNote) {
+    public int editNote(int index, Note updatedNote) throws Exception {
         try {
+            if (notes[index] == null) {
+                throw new Exception("Записи не существует. Сначала создайте ее");
+            }
             notes[index] = updatedNote;
-            System.out.println("Запись успешно обновлена");
         } catch (ArrayIndexOutOfBoundsException exception) {
-            System.out.println("Введен неправильный индекс записи");
+            throw new Exception("Введен неправильный индекс записи");
         }
         return index;
     }
 
     public Note[] getAllNotes() {
         return notes;
-    }
-
-    public static int getNotebookId() {
-        return notebookId;
     }
 }
