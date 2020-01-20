@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         System.out.println("\nЗАДАНИЕ 2:");
         ExerciseTwo exerciseTwo = new ExerciseTwo();
-        exerciseTwo.execute(7);
+        exerciseTwo.execute(11);
 
         System.out.println("\nЗАДАНИЕ 3:");
         ExerciseThree exerciseThree = new ExerciseThree();

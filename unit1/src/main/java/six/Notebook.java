@@ -17,11 +17,11 @@ public class Notebook {
      * @param note
      * @return
      */
-    public int addNote(Note note) throws Exception {
+    public int addNote(Note note) throws RuntimeException {
         try {
             notes[index] = note;
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new Exception("Блокнот переполнен");
+            throw new RuntimeException("Блокнот переполнен");
         }
         return index++;
     }
@@ -31,11 +31,11 @@ public class Notebook {
      * @param index
      * @return
      */
-    public int deleteNote(int index) throws Exception {
+    public int deleteNote(int index) throws RuntimeException {
         try {
             notes[index] = null;
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new Exception("Введен неправильный индекс записи");
+            throw new RuntimeException("Введен неправильный индекс записи");
         }
         return index;
     }
@@ -46,14 +46,14 @@ public class Notebook {
      * @param updatedNote
      * @return
      */
-    public int editNote(int index, Note updatedNote) throws Exception {
+    public int editNote(int index, Note updatedNote) throws RuntimeException {
         try {
             if (notes[index] == null) {
-                throw new Exception("Записи не существует. Сначала создайте ее");
+                throw new RuntimeException("Записи не существует. Сначала создайте ее");
             }
             notes[index] = updatedNote;
         } catch (ArrayIndexOutOfBoundsException exception) {
-            throw new Exception("Введен неправильный индекс записи");
+            throw new RuntimeException("Введен неправильный индекс записи");
         }
         return index;
     }
