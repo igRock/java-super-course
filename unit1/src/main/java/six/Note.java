@@ -1,3 +1,5 @@
+package six;
+
 public class Note {
     private String title;
     private String text;
