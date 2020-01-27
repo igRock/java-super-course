@@ -1,18 +1,19 @@
-package stationery_app.items;
+package stationery_app.stationery;
 
-import java.awt.Color;
+import java.awt.*;
 import java.util.Objects;
-import stationery_app.enums.PenType;
 
-public class Pen extends Stationery implements Writer{
+public class Pencil extends Stationery implements Writer{
     private Color color;
     private String brand;
-    private PenType penType;
+    private String bold;
 
-    public Pen(Color color, String brand, PenType penType) {
+    public Pencil(Color color, String brand, String bold, Double price) {
         this.color = color;
         this.brand = brand;
-        this.penType = penType;
+        this.bold = bold;
+        this.setName("Карандаш");
+        this.setPrice(price);
     }
 
     public Color getColor() {
@@ -31,17 +32,17 @@ public class Pen extends Stationery implements Writer{
         this.brand = brand;
     }
 
-    public PenType getPenType() {
-        return penType;
+    public String getBold() {
+        return bold;
     }
 
-    public void setPenType(PenType penType) {
-        this.penType = penType;
+    public void setBold(String bold) {
+        this.bold = bold;
     }
 
     @Override
     public void write() {
-        System.out.println("Ручка пишет этот текст");
+        System.out.println("Карандаш пишет этот текст");
     }
 
     @Override
@@ -52,15 +53,15 @@ public class Pen extends Stationery implements Writer{
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Pen pen = (Pen) object;
+        Pencil pen = (Pencil) object;
         return Objects.equals(color, pen.color) &&
             Objects.equals(brand, pen.brand) &&
-            penType == pen.penType;
+            bold == pen.bold;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(color, brand, penType);
+        return Objects.hash(color, brand, bold);
     }
 
     @Override
@@ -72,8 +73,8 @@ public class Pen extends Stationery implements Writer{
             .append("Бренд - ")
             .append(brand)
             .append("\n")
-            .append("Тип - ")
-            .append(penType)
+            .append("Жирность - ")
+            .append(bold)
             .toString();
     }
 }

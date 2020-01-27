@@ -1,4 +1,4 @@
-package stationery_app.enums;
+package stationery_app.stationery.enums;
 
 public enum PenType {
     GEL,

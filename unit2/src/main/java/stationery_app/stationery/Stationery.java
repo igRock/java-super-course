@@ -1,4 +1,4 @@
-package stationery_app.items;
+package stationery_app.stationery;
 
 public abstract class Stationery implements Comparable {
     private String name;

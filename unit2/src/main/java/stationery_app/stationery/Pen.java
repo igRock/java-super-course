@@ -1,18 +1,21 @@
-package stationery_app.items;
+package stationery_app.stationery;
 
-import java.awt.Color;
+import stationery_app.stationery.enums.PenType;
+
+import java.awt.*;
 import java.util.Objects;
-import stationery_app.enums.PenType;
 
-public class Pencil extends Stationery implements Writer{
+public class Pen extends Stationery implements Writer{
     private Color color;
     private String brand;
-    private String bold;
+    private PenType penType;
 
-    public Pencil(Color color, String brand, String bold) {
+    public Pen(Color color, String brand, PenType penType, Double price) {
         this.color = color;
         this.brand = brand;
-        this.bold = bold;
+        this.penType = penType;
+        this.setName("Ручка");
+        this.setPrice(price);
     }
 
     public Color getColor() {
@@ -31,17 +34,17 @@ public class Pencil extends Stationery implements Writer{
         this.brand = brand;
     }
 
-    public String getBold() {
-        return bold;
+    public PenType getPenType() {
+        return penType;
     }
 
-    public void setBold(String bold) {
-        this.bold = bold;
+    public void setPenType(PenType penType) {
+        this.penType = penType;
     }
 
     @Override
     public void write() {
-        System.out.println("Карандаш пишет этот текст");
+        System.out.println("Ручка пишет этот текст");
     }
 
     @Override
@@ -52,15 +55,15 @@ public class Pencil extends Stationery implements Writer{
         if (object == null || getClass() != object.getClass()) {
             return false;
         }
-        Pencil pen = (Pencil) object;
+        Pen pen = (Pen) object;
         return Objects.equals(color, pen.color) &&
             Objects.equals(brand, pen.brand) &&
-            bold == pen.bold;
+            penType == pen.penType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(color, brand, bold);
+        return Objects.hash(color, brand, penType);
     }
 
     @Override
@@ -72,8 +75,8 @@ public class Pencil extends Stationery implements Writer{
             .append("Бренд - ")
             .append(brand)
             .append("\n")
-            .append("Жирность - ")
-            .append(bold)
+            .append("Тип - ")
+            .append(penType)
             .toString();
     }
 }
