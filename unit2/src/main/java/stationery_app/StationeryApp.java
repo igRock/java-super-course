@@ -1,6 +1,9 @@
 package stationery_app;
 
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.stream.Collectors;
 import stationery_app.company.Employee;
 import stationery_app.company.WorkPlace;
 import stationery_app.stationery.Stationery;
@@ -37,6 +40,14 @@ public class StationeryApp {
                 countStationeryCost(employee)));
 
         // Сортировка
+        List<Stationery> allStationeries = employees.stream()
+            .map(Employee::getStationeries)
+            .flatMap(List::stream)
+            .collect(Collectors.toList());
+
+        List<Stationery> sortedByPriceStationeries = sortByPrice(allStationeries);
+        List<Stationery> sortedByNameStationeries = sortByName(allStationeries);
+        List<Stationery> sortedByNamePriceStationeries = sortByNamePrice(allStationeries);
     }
 
     private static void installmployee(WorkPlace workPlace, Employee employee) {
@@ -49,6 +60,24 @@ public class StationeryApp {
         return employee.getStationeries().stream()
                 .mapToDouble(Stationery::getPrice)
                 .sum();
+    }
+
+    private static List<Stationery> sortByPrice(List<Stationery> stationeries) {
+        //по стоимости
+        Collections.sort(stationeries, Comparator.comparing(Stationery::getPrice));
+        return stationeries;
+    }
+
+    private static List<Stationery> sortByName(List<Stationery> stationeries) {
+        //по наименованию
+        Collections.sort(stationeries, Comparator.comparing(Stationery::getName));
+        return stationeries;
+    }
+
+    private static List<Stationery> sortByNamePrice(List<Stationery> stationeries) {
+        //по наименованию и по цене
+        Collections.sort(stationeries, Comparator.comparing(Stationery::getName).thenComparing(Stationery::getPrice));
+        return stationeries;
     }
 }
 
