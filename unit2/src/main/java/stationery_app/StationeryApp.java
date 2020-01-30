@@ -45,15 +45,15 @@ public class StationeryApp {
             .flatMap(List::stream)
             .collect(Collectors.toList());
 
-        List<Stationery> sortedByPriceStationeries = sortByPrice(allStationeries);
-        List<Stationery> sortedByNameStationeries = sortByName(allStationeries);
-        List<Stationery> sortedByNamePriceStationeries = sortByNamePrice(allStationeries);
+        sortByPrice(allStationeries);
+        sortByName(allStationeries);
+        sortByNamePrice(allStationeries);
     }
 
     private static void installmployee(WorkPlace workPlace, Employee employee) {
         employee.setStationeries(WorkPlace.createNewbieSet());
         workPlace.setEmployee(employee);
-        employee.setWorkingAddress(workPlace.getAddress());
+        employee.setWorkPlace(workPlace);
     }
 
     private static double countStationeryCost(Employee employee) {
@@ -64,19 +64,19 @@ public class StationeryApp {
 
     private static List<Stationery> sortByPrice(List<Stationery> stationeries) {
         //по стоимости
-        Collections.sort(stationeries, Comparator.comparing(Stationery::getPrice));
+        stationeries.sort(Comparator.comparing(Stationery::getPrice));
         return stationeries;
     }
 
     private static List<Stationery> sortByName(List<Stationery> stationeries) {
         //по наименованию
-        Collections.sort(stationeries, Comparator.comparing(Stationery::getName));
+        stationeries.sort(Comparator.comparing(Stationery::getName));
         return stationeries;
     }
 
     private static List<Stationery> sortByNamePrice(List<Stationery> stationeries) {
         //по наименованию и по цене
-        Collections.sort(stationeries, Comparator.comparing(Stationery::getName).thenComparing(Stationery::getPrice));
+        stationeries.sort(Comparator.comparing(Stationery::getName).thenComparing(Stationery::getPrice));
         return stationeries;
     }
 }

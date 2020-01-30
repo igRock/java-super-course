@@ -5,22 +5,16 @@ import stationery_app.stationery.Stationery;
 import java.util.List;
 
 public class Employee {
-    private static int id;
     private String name;
-    private String workingAddress;
+    private WorkPlace workPlace;
     private List<Stationery> stationeries;
 
     public Employee(String name) {
         this.name = name;
-        id ++;
     }
 
     public String getName() {
         return name;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public List<Stationery> getStationeries() {
@@ -31,11 +25,11 @@ public class Employee {
         this.stationeries = stationeries;
     }
 
-    public String getWorkingAddress() {
-        return workingAddress;
+    public WorkPlace getWorkPlace() {
+        return workPlace;
     }
 
-    public void setWorkingAddress(String workingAddress) {
-        this.workingAddress = workingAddress;
+    public void setWorkPlace(WorkPlace workPlace) {
+        this.workPlace = workPlace;
     }
 }
