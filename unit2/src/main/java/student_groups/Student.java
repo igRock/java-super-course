@@ -9,7 +9,7 @@ public class Student {
 
     public Student(String name) {
         this.name = name;
-        groups = new ArrayList();
+        groups = new ArrayList<>();
     }
 
     public String getName() {
@@ -22,12 +22,5 @@ public class Student {
 
     public void addGroup(Group group) {
         groups.add(group);
-    }
-
-    public void showStudyingResults(){
-        System.out.println(String.format("Результаты студента %s:", name));
-
-        groups.forEach(group -> System.out.println(String.format(" - по курсу %s - %s", group.getSubject(),
-                group.getStudentsMark(this))));
     }
 }
