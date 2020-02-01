@@ -1,10 +1,11 @@
 package student_groups;
 
+import student_groups.enums.MarkType;
+import student_groups.enums.Subject;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-import student_groups.enums.MarkType;
-import student_groups.enums.Subject;
 
 public class StudentGroupsApp {
     private static Random random = new Random();
@@ -39,6 +40,15 @@ public class StudentGroupsApp {
 
     private static void examinateStudents(Group group) {
         Map<Student, List<Number>> studentMarkMap = group.getStudentMarksMap();
+        studentMarkMap.entrySet().forEach(entry -> {
+            if (MarkType.INTEGER.equals(group.getSubject().getMarkType())) {
+                entry.getValue().add(random.nextInt(5));
+            } else {
+                entry.getValue().add(Math.floor(random.nextDouble() * 100 * 5) / 100);
+            }
+        });
+
+
         studentMarkMap.keySet().forEach(student -> {
             if (MarkType.INTEGER.equals(group.getSubject().getMarkType())) {
                 studentMarkMap.get(student).add(random.nextInt(5));
