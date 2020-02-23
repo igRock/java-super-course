@@ -59,4 +59,12 @@ public class KeywordCounter {
         }
         return result;
     }
+
+    public static String[] separateLineIntoCleanWords(String line) {
+        return line
+                .replaceAll("\\/\\/", " // ")
+                .replaceAll("\\/\\*", " /* ")
+                .replaceAll("\\*\\/", " */ ")
+                .split("[\\s|\\(|=|,|\\)|;]");
+    }
 }

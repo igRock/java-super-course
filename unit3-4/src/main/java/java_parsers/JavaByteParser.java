@@ -8,6 +8,7 @@ import java.nio.charset.Charset;
 import java.util.HashMap;
 
 import static java_parsers.KeywordCounter.checkWords;
+import static java_parsers.KeywordCounter.separateLineIntoCleanWords;
 
 public class JavaByteParser {
     private static HashMap <String, KeywordCounter> result = new HashMap<>();
@@ -24,11 +25,7 @@ public class JavaByteParser {
 
         for(String line : strings) {
             // сначала отделим //, /*, */,  пробелами от слов, а затем разобьём строку по пробельным символам = , ( ) ;
-            String[] words = line
-                    .replaceAll("\\/\\/"," // ")
-                    .replaceAll("\\/\\*"," /* ")
-                    .replaceAll("\\*\\/"," */ ")
-                    .split("[\\s|\\(|=|,|\\)|;]");
+            String[] words = separateLineIntoCleanWords(line);
             if (words.length > 0) {
                 checkWords(words, result);
             }
