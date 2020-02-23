@@ -9,6 +9,10 @@ public class Main {
         String basePath = new File("").getAbsolutePath().concat("/unit3-4/src/main/java/java_parsers");
 
         try {
+            File outputDirectory = new File(basePath + "/out");
+            if (!outputDirectory.exists()) {
+                outputDirectory.mkdir();
+            }
             JavaStringParser.parse(new File(basePath.concat("/in/JavaByteParser.java")),
                     new File(basePath.concat("/out/StringCounter.txt")));
             JavaByteParser.parse(new File(basePath.concat("/in/JavaByteParser.java")),
@@ -16,6 +20,5 @@ public class Main {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

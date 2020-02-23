@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
+import static java_parsers.KeywordCounter.checkWords;
+
 public class JavaByteParser {
-    private static int comments = 0;
-    private static int quotes = 0;
     private static HashMap <String, KeywordCounter> result = new HashMap<>();
 
     public static void parse(File fin, File fout) throws IOException {
@@ -29,58 +29,20 @@ public class JavaByteParser {
                     .replaceAll("\\/\\*"," /* ")
                     .replaceAll("\\*\\/"," */ ")
                     .split("[\\s|\\(|=|,|\\)|;]");
-            parse(words);
+            if (words.length > 0) {
+                checkWords(words, result);
+            }
         }
 
-        StringBuffer stringBuffer = new StringBuffer(result.size());
+        StringBuilder stringBuffer = new StringBuilder(result.size());
 
         for(String key : result.keySet()){
-            stringBuffer.append(key + " = " + result.get(key).getCount() + "\n");
+            stringBuffer.append(key).append(" = ").append(result.get(key).getCount()).append("\n");
         }
 
         FileOutputStream out = new FileOutputStream(fout);
         bytes=stringBuffer.toString().getBytes();
         out.write(bytes);
         out.close();
-    }
-
-    private static void parse(String[] words){
-        if (words.length > 0) {
-
-            for (String word : words) {
-                if (word.contains("//")) break; // дальше в строке только коментарии
-                if (word.length() > 0) {
-                    if ((quotes > 0) || (comments > 0)) {
-                        if (comments > 0) {
-                            commentsCounter(word);
-                        } else {
-                            if (word.length()>1) {
-                                if ((word.charAt(word.length() - 1) == '"')&&(word.charAt(word.length() - 2)!='\\')) quotes--;
-                            } else  if (word.charAt(word.length() - 1) == '"') quotes--;}
-                    } else {
-                        if (word.contains("/*")) {
-                            commentsCounter(word);
-                        } else {
-                            if (word.charAt(0) == '"') {
-                                quotes++;
-                                if ((word.length()>1)&&(word.charAt(word.length() - 1)=='"')) quotes--;
-                            } else {
-                                for (String keyword : KeywordCounter.keywords) {
-                                    if (keyword.equals(word)) {
-                                        if (result.containsKey(keyword)) result.get(keyword).incCount();
-                                        else result.put(keyword, new KeywordCounter());
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private static void commentsCounter(String s){
-        comments++;
-        if (s.contains("*/")) comments = 0;
     }
 }

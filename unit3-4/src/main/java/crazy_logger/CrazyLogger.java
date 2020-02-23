@@ -8,8 +8,7 @@ import java.util.regex.Pattern;
 public class CrazyLogger {
     private static final StringBuilder loggerData = new StringBuilder(1024);
     private static CrazyLogger instance;
-    private DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm");
-
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("dd.MM.yyyy hh:mm");
 
     private CrazyLogger() {}
 
@@ -42,15 +41,14 @@ public class CrazyLogger {
         loggerData.append(DATE_FORMAT.format(LocalDateTime.now())).append(" - ").append(message).append("\n");
     }
 
-    public void printLog() {
-        System.out.println(getLog());
+    public String getLogString() {
+        return getLog();
+    }
+    public String getLogByString(String byString) {
+        return getLog(byString);
     }
 
-    public void printLog(String byString) {
-        System.out.println(getLog(byString));
-    }
-
-    public void printLog(LocalDateTime ldt) {
-        System.out.println(getLog(ldt));
+    public String getLogByDate(LocalDateTime ldt) {
+        return getLog(ldt);
     }
 }

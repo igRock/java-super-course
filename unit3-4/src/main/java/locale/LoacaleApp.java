@@ -1,8 +1,6 @@
 package locale;
 
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 public class LoacaleApp {
     public static void main(String[] args) {
@@ -20,12 +18,26 @@ public class LoacaleApp {
             throw new RuntimeException("Введено неправильное значение");
         }
 
-        showQuestionsAndAnswers(bundle);
+        List<String> questions = getQuestions(bundle);
+        System.out.println("Выберите номер вопроса. Всего вопросов - " + questions.size());
+
+        for(String question: questions) {
+            System.out.println(question);
+        }
+
+        String questionNumber = scanner.nextLine();
+        System.out.println(getAnswerById(Integer.parseInt(questionNumber), bundle));
     }
 
-    private static void showQuestionsAndAnswers(ResourceBundle bundle) {
-        for(String key : bundle.keySet()) {
-            System.out.println(bundle.getString(key));
+    private static String getAnswerById(Integer index, ResourceBundle bundle) {
+        return bundle.getString("answer" + index);
+    }
+
+    private static List<String> getQuestions(ResourceBundle bundle) {
+        List<String> questions = new LinkedList<>();
+        for (int i = 1; i <= bundle.keySet().size() / 2; i++) {
+            questions.add(bundle.getString("question" + i));
         }
+        return questions;
     }
 }

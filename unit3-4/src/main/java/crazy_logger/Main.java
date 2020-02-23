@@ -9,11 +9,10 @@ public class Main {
         logger.log("Message 2");
         logger.log("Message 3");
         logger.log("Message 4");
-        logger.printLog();
+        System.out.println(logger.getLogString());
         System.out.println("Поиск по \"Message 2:\"");
-        logger.printLog("Message 2");
+        System.out.println(logger.getLogByString("Message 2"));
         System.out.println("Записи за сегодня:");
-
-        logger.printLog(LocalDateTime.now());
+        System.out.println(logger.getLogByDate(LocalDateTime.now()));
     }
 }

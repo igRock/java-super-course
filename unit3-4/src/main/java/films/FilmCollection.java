@@ -2,11 +2,12 @@ package films;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.Map;
 
 public class FilmCollection  implements Serializable {
     public static final String BASE_PATH = "/unit3-4/src/main/java/films/collection/film_collection.txt";
 
-    private HashMap<String, Film> collection;
+    private Map<String, Film> collection;
     transient private int numberoffilms;
 
     @Override
@@ -31,6 +32,10 @@ public class FilmCollection  implements Serializable {
         return this;
     }
 
+    public Map<String, Film> getCollection() {
+        return collection;
+    }
+
     public FilmCollection addFilm(Film film) {
         collection.put(film.getTitle(), film);
         numberoffilms++;
@@ -43,18 +48,18 @@ public class FilmCollection  implements Serializable {
         return this;
     }
 
-    public void save() {
-        String basePath = new File("").getAbsolutePath().concat(BASE_PATH);
-        try (FileOutputStream os = new FileOutputStream(basePath); ObjectOutputStream oos = new ObjectOutputStream(os)) {
+    public File save(File outputFile) {
+        try (FileOutputStream os = new FileOutputStream(outputFile);
+             ObjectOutputStream oos = new ObjectOutputStream(os)) {
             oos.writeObject(this);
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return outputFile;
     }
 
-    public static FilmCollection download() throws ClassNotFoundException, IOException {
-        String basePath = new File("").getAbsolutePath().concat(BASE_PATH);
-        try (FileInputStream is = new FileInputStream(basePath); ObjectInputStream ois = new ObjectInputStream(is)) {
+    public static FilmCollection download(File file) throws ClassNotFoundException, IOException {
+        try (FileInputStream is = new FileInputStream(file); ObjectInputStream ois = new ObjectInputStream(is)) {
             return ((FilmCollection) ois.readObject()).numberOfFilmsInit();
         }
     }
