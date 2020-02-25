@@ -77,15 +77,7 @@ public class JavaByteParser {
                                 quotes--;
                             }
                         } else {
-                            for (String keyword : KeywordCounter.keywords) {
-                                if (keyword.equals(word)) {
-                                    if (result.containsKey(keyword)) {
-                                        result.get(keyword);
-                                    } else {
-                                        result.put(keyword, new KeywordCounter());
-                                    }
-                                }
-                            }
+                            return;
                         }
                     }
                 }
