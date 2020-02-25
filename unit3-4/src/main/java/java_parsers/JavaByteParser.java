@@ -5,13 +5,10 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.HashMap;
+import java.util.Map;
 
-import static java_parsers.KeywordCounter.checkWords;
-import static java_parsers.KeywordCounter.separateLineIntoCleanWords;
 
 public class JavaByteParser {
-    private static HashMap <String, KeywordCounter> result = new HashMap<>();
 
     public static void parse(File fin, File fout) throws IOException {
         FileInputStream in = new FileInputStream(fin);
@@ -21,24 +18,16 @@ public class JavaByteParser {
         in.read(bytes);
         in.close();
 
-        String[] strings = (new String(bytes, Charset.forName("UTF-8"))).split("\n");
-
-        for(String line : strings) {
-            // сначала отделим //, /*, */,  пробелами от слов, а затем разобьём строку по пробельным символам = , ( ) ;
-            String[] words = separateLineIntoCleanWords(line);
-            if (words.length > 0) {
-                checkWords(words, result);
-            }
-        }
+        Map<String, Long> result = KeywordCounter.getResult(new String(bytes, Charset.forName("UTF-8")));
 
         StringBuilder stringBuffer = new StringBuilder(result.size());
 
-        for(String key : result.keySet()){
-            stringBuffer.append(key).append(" = ").append(result.get(key).getCount()).append("\n");
+        for (String key : result.keySet()) {
+            stringBuffer.append(key).append(" = ").append(result.get(key)).append("\n");
         }
 
         FileOutputStream out = new FileOutputStream(fout);
-        bytes=stringBuffer.toString().getBytes();
+        bytes = stringBuffer.toString().getBytes();
         out.write(bytes);
         out.close();
     }

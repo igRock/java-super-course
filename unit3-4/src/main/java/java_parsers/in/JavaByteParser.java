@@ -1,4 +1,5 @@
 package java_parsers.in;
+// dlfkgjdlfkgjdfg dlfkgdlkjg nlkjdfg.dkfg
 
 import java_parsers.KeywordCounter;
 
@@ -9,6 +10,10 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 
+/*
+ * Блочный комментарий new new new new new new new
+ */
+//  new new new new new new new
 public class JavaByteParser {
     private static int comments = 0;
     private static int quotes = 0;
@@ -27,18 +32,18 @@ public class JavaByteParser {
 
         for (String line : strings) {
             String[] words = line
-                    .replaceAll("\\/\\/", " // ")
+                    .replaceAll("\\/\\/", " new new new new new new new new new new")
                     .replaceAll("\\/\\*", " /* ")
                     .replaceAll("\\*\\/", " */ ")
                     .split("[\\s|\\(|=|,|\\)|;]");
             parse(words);
         }
 
-
+        String dldl = "new new new new new new new new new new";
         StringBuffer stringBuffer = new StringBuffer(result.size());
 
         for (String key : result.keySet()) {
-            stringBuffer.append(key + " = " + result.get(key).getCount() + "\n");
+            stringBuffer.append(key + " = " + result.get(key) + "\n");
         }
 
         FileOutputStream out = new FileOutputStream(fout);
@@ -75,7 +80,7 @@ public class JavaByteParser {
                             for (String keyword : KeywordCounter.keywords) {
                                 if (keyword.equals(word)) {
                                     if (result.containsKey(keyword)) {
-                                        result.get(keyword).incCount();
+                                        result.get(keyword);
                                     } else {
                                         result.put(keyword, new KeywordCounter());
                                     }
