@@ -13,9 +13,9 @@ public class Main {
             if (!outputDirectory.exists()) {
                 outputDirectory.mkdir();
             }
-            JavaStringParser.parse(new File(basePath.concat("/in/JavaByteParser.java")),
+            JavaStringParser.parse(new File(basePath.concat("/in/JavaFileToParse.java")),
                     new File(basePath.concat("/out/StringCounter.txt")));
-            JavaByteParser.parse(new File(basePath.concat("/in/JavaByteParser.java")),
+            JavaByteParser.parse(new File(basePath.concat("/in/JavaFileToParse.java")),
                     new File(basePath.concat("/out/ByteCounter.txt")));
         } catch (IOException e) {
             e.printStackTrace();

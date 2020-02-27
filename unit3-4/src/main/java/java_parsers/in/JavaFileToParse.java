@@ -14,7 +14,7 @@ import java.util.HashMap;
  * Блочный комментарий new new new new new new new
  */
 //  new new new new new new new
-public class JavaByteParser {
+public class JavaFileToParse {
     private static int comments = 0;
     private static int quotes = 0;
     private static HashMap<String, KeywordCounter> result = new HashMap<>();
