@@ -11,6 +11,7 @@
   <modules>
     <module>unit1</module>
     <module>unit2</module>
+    <module>unit3-4</module>
   </modules>
 
   <properties>
