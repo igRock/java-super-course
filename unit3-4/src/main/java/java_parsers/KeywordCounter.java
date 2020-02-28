@@ -12,7 +12,7 @@ public class KeywordCounter {
         return Arrays.stream(javaText
                 .replaceAll("((['\"])(?:(?!\\2|\\\\).|\\\\.)*\\2)|\\/\\/[^\\n]*|\\/\\*(?:[^*]|\\*(?!\\/))*\\*\\/",
                             "") //Удаляю значения строк во всех видах кавычек + блочные и строчные комментарии
-                .split("[\\p{Space}|[\\p{Punct}&&[^.]]]"))//Дроблю на слова по пробелам и по знакам пунктуции кроме .
+                .split("[\\p{Space}|[\\p{Punct}]]"))//Дроблю на слова по пробелам и по знакам пунктуции кроме .
                 .filter(JavaUtils::isJavaKeyword)
                 .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
     }
