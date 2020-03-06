@@ -5,6 +5,10 @@ import java.nio.file.Paths;
 
 public class FileExplorerApp {
 
+    public static final String FILE_NAME = "note.txt";
+    public static final String RESOURCES_PATH = "unit5/src/main/resources";
+    public static final String ROOT_PATH = "unit5/src/main/java";
+
     public static void main(String[] args) {
         try {
             FileExplorer explorer = new FileExplorer();
@@ -12,25 +16,24 @@ public class FileExplorerApp {
             System.out.println(explorer.showItems());
 
             System.out.println("Файлы по определенному пути:");
-            System.out.println(explorer.showItems(Path.of("unit5/src/main/java")));
+            System.out.println(explorer.showItems(Path.of(ROOT_PATH)));
 
-            String fileName = "note";
-            Path path = Path.of("unit5/src/main/resources");
+            Path path = Path.of(RESOURCES_PATH);
             System.out.println("Создаем файл");
-            explorer.createTextFile("Какой-то текст", fileName, path);
+            explorer.createTextFile("Какой-то текст", FILE_NAME, path);
 
-            Path filePath = Path.of("unit5/src/main/resources/note.txt");
-            System.out.println("Читаем созданный файл:");
+            Path filePath = Path.of(RESOURCES_PATH, FILE_NAME);
+            System.out.println("\nЧитаем созданный файл:");
             System.out.println(explorer.readTextFile(filePath));
 
             System.out.println("Редактируем созданный файл:");
-            explorer.editTextFile(filePath, "\r\nnew text!");
+            explorer.editTextFile(filePath, "new text!");
 
-            System.out.println("Читаем отредактированный файл:");
+            System.out.println("\nЧитаем отредактированный файл:");
             System.out.println(explorer.readTextFile(filePath));
 
-//            System.out.println("Удаляем созданный файл");
-//            explorer.removeFile(filePath);
+            System.out.println("Удаляем созданный файл");
+            explorer.removeFile(filePath);
         } catch (IOException e) {
             e.printStackTrace();
         }

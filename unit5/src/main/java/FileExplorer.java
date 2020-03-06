@@ -45,7 +45,12 @@ public class FileExplorer {
         if (!Files.exists(path) || !Files.isDirectory(path)) {
             Files.createDirectories(path);
         }
-        Files.createFile(Paths.get(path.toString(), fileName.concat(".txt")));
+        Path filePath = Paths.get(path.toString(), fileName);
+        if (Files.exists(filePath)) {
+            return;
+        }
+        Path newFile = Files.createFile(filePath);
+        Files.write(newFile, Collections.singleton(text), StandardCharsets.UTF_8);
     }
 
     public void removeFile(Path path) throws IOException {
@@ -54,29 +59,9 @@ public class FileExplorer {
 
     public void editTextFile(Path path, String newText) throws IOException {
         Files.write(path, Collections.singleton(newText), StandardCharsets.UTF_8);
-
-//        try (FileWriter fw = new FileWriter(path, true);
-//            BufferedWriter bw = new BufferedWriter(fw);
-//            PrintWriter out = new PrintWriter(bw)) {
-//
-//            out.println(newText);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
     }
 
     public String readTextFile(Path path) throws IOException {
         return Files.readAllLines(path).stream().collect(Collectors.joining("\n"));
-
-//        File file;
-//        try (FileReader reader = new FileReader(file = new File(path))) {
-//            char[] buf = new char[(int) file.length()];
-//            //noinspection ResultOfMethodCallIgnored
-//            reader.read(buf);
-//            return new String(buf).trim();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return "";
     }
 }
