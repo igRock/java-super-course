@@ -1,7 +1,7 @@
-import java.io.File;
+package file_explorer;
+
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 public class FileExplorerApp {
 
